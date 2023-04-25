@@ -4,6 +4,9 @@
 #include <fstream>
 #include <limits>
 
+/// ##############################################################################################
+/// @class GuessNumber
+/// ##############################################################################################
 GuessNumber::GuessNumber()
 {
 }
@@ -11,6 +14,7 @@ GuessNumber::GuessNumber()
 GuessNumber::~GuessNumber()
 {
 }
+
 void GuessNumber::run()
 {
     retreat = "###############################";
@@ -68,7 +72,6 @@ void GuessNumber::menu()
         }
 
 } while ( ! exitGame );
-
 }
 
 void GuessNumber::play()
@@ -79,7 +82,6 @@ void GuessNumber::play()
     int userValue { 0 };
     player.attemptCounter = 0;
     player.win = false;
-//    highScores->getScores();
 
     cout << "Please enter your nickname " << endl;
     cin  >> player.name;
@@ -127,7 +129,7 @@ void GuessNumber::play()
             else             highScores.setScores(tempScores);
         }
     }
-    highScores.writeScores(highScores.getScores());
+    highScores.writeScores();
     menuScors();
 }
 
@@ -257,6 +259,9 @@ void GuessNumber::menuScors()
     } while ( ! exitGame );
 }
 
+/// ##############################################################################################
+/// @class HighScores
+/// ##############################################################################################
 HighScores::HighScores()
 {
     scores = takeScores();
@@ -265,7 +270,7 @@ HighScores::HighScores()
 void HighScores::clearScores()
 {
     scores.clear();
-    writeScores(scores);
+    writeScores();
 }
 
 list<pair<int, string>> HighScores::takeScores()
@@ -313,9 +318,9 @@ void HighScores::sort()
     scores.sort();
 }
 
-void HighScores::writeScores(list<pair<int, string> > scors)
+void HighScores::writeScores()
 {
-//    scors.sort();
+    scores.sort();
     const string highScoresFileName = "high_scores.txt";
     ofstream outFile{highScoresFileName, ios_base::out};
     if ( ! outFile.is_open() ) {
@@ -323,10 +328,10 @@ void HighScores::writeScores(list<pair<int, string> > scors)
     }
 
     if ( outFile.is_open() ) {
-        if ( scors.empty() )
+        if ( scores.empty() )
             outFile.clear();
         else
-            for ( const auto &score : scors)
+            for ( const auto &score : scores)
                 outFile << score.second << '\t' << score.first << endl;
     }
     outFile.close();

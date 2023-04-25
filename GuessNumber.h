@@ -5,22 +5,21 @@
 
 using namespace std;
 
-///
+/// ##############################################################################################
 /// @class HighScores
-///
+/// ##############################################################################################
 class HighScores
 {
 public:
     HighScores();
     void clearScores();
     void sort();
-    void writeScores(list<pair<int, string>> scors);
+    void writeScores();
 
     list<pair<int, string>> takeScores();
     list<pair<int, string>> getScores();
     void                    setScores(list<pair<int, string>> scores);
     void                    appendScores(int attemptCounter, string name);
-
 
 private:
     list<pair<int, string>> scores;
@@ -33,6 +32,9 @@ struct Player
     bool win { false };
 };
 
+/// ##############################################################################################
+/// @class GuessNumber
+/// ##############################################################################################
 class GuessNumber
 {
     enum MainMenu
